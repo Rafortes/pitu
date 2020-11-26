@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import { Container, InputGroup, FormControl, Button, Alert, Spinner } from 'react-bootstrap';
 import { ContentContainer, Form } from './style';
 import ShortenerService from '../../services/shortenerService';
+import vars from '../../configs/vars';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -50,13 +51,6 @@ class HomePage extends React.Component {
     render() {
         const { isLoading, errorMenssage, code } = this.state;
         return (
-            // <form onSubmit={this.handleSubmit}>
-            //     <label>
-            //     Nome:
-            //     <input type="text" value={this.state.value} onChange={e => this.setState({ url: e.target.value })} />
-            //     </label>
-            //     <input type="submit" value="Enviar" />
-            // </form>
             <Container>
                 <Header>Seu novo encurtador URL</Header>
                 <ContentContainer>
@@ -80,14 +74,14 @@ class HomePage extends React.Component {
                                     <InputGroup className="mb-3">
                                         <FormControl
                                             autoFocus ={true}
-                                            defaultValue={`https://pitu.tk/${code}`}
+                                            defaultValue={vars.HOST_API + code}
                                             ref={(input) => this.inputURL = input}
                                         />
                                         <InputGroup.Append>
                                             <Button variant="outline-secondary" onClick={() => this.copyToClipboard()}>Copiar</Button>
                                         </InputGroup.Append>
                                     </InputGroup>
-                                    <p>Para acompanhar os status, acesse https://pitu.tk/{code}</p>
+                                    <p>Para acompanhar os status, acesse {vars.HOST_API + code}/stats</p>
                                 </>
                             )
                         )}
