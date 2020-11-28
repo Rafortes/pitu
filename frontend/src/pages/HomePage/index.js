@@ -19,27 +19,28 @@ class HomePage extends React.Component {
     }
 
     handleSubmit = async(event) => {
-        console.log('entrou no botao');
+        
         event.preventDefault();
 
-        const { url } = this.state;
+        var { url } = this.state;
+        
+        if(url.indexOf('https://') < 0 && url.indexOf('http://') < 0)
+            url = `http://${url}`;
         
         this.setState({ isLoading: true, errorMenssage: '' });
-        console.log('antes do if');
+        
         if(!url)
             this.setState({ isLoading: false, errorMenssage: 'Informe uma URL' });
         else{
             try {
                 const service = new ShortenerService();
                 const result = await service.gerenate({ url });
-
+                
                 this.setState({ isLoading: false, code: result.code });
             } catch (error) {
                 this.setState({ isLoading: false, errorMenssage: 'Ops, erro' });
             }
         }
-        console.log('final');
-        console.log(url);
     }
 
     copyToClipboard = () => {
